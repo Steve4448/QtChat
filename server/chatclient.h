@@ -13,7 +13,7 @@ public:
     virtual ~ChatClient();
     QString username;
     QString ipAddress;
-    void doPacket(quint8, QString);
+    void doPacket(quint8, QString = "");
 
 signals:
     void disconnected(ChatClient*);

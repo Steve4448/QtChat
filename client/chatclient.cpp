@@ -5,7 +5,7 @@
 #include <QDesktopServices>
 #include <QKeyEvent>
 #include <QUrl>
-double ChatClient::Version = 1.1;
+double ChatClient::Version = 1.2;
 
 ChatClient::ChatClient(QWidget *parent) :
 	QMainWindow(parent),
@@ -45,7 +45,7 @@ void ChatClient::connected() {
 	ui->inputMessageArea->setEnabled(true);
 	ui->connectNowButton->setEnabled(false);
 	ui->connectNowButton->setVisible(false);
-	doPacket(0x1, "");
+    doPacket(0x1);
 	timer.stop();
 	addText("<font color=\"#005500\">Connection established.</font>");
 }

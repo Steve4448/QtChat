@@ -5,7 +5,7 @@
 #include "chatclient.h"
 
 int Server::serverPort = 8612;
-double Server::Version = 1.1;
+double Server::Version = 1.2;
 QString Server::fileLocation = "saves";
 QList<ChatClient*> Server::clients;
 
@@ -29,7 +29,7 @@ void Server::broadcastMessage(QString message) {
 
 void Server::updateClientList() {
     foreach(ChatClient* client, clients) {
-        client->doPacket((quint8)0x1, (QString)"");
+        client->doPacket((quint8)0x1);
     }
 }
 

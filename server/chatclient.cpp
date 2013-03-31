@@ -75,7 +75,6 @@ void ChatClient::newData() {
             {
                 QString message;
                 reader >> message;
-
                 if(message.startsWith("/") && !message.startsWith("//")){
                     QStringList args = message.split(" ");
                     QString command = args[0];
@@ -93,7 +92,7 @@ void ChatClient::newData() {
                             return;
                         }
                         if(newName.trimmed().length() == 0 || newName.length() >= 12) {
-                            doPacket(0x2, "<font color=\"#550000\">Invaild name</font>; The name \"" + newName + "\" is too " + (QString)(newName.trimmed().length() == 0 ? "short" : "long") + ".");
+                            doPacket(0x2, "<font color=\"#550000\">Invaild name</font>; The name \"" + newName + "\" is too " + QString(newName.trimmed().length() == 0 ? "short" : "long") + ".");
                             return;
                         }
                         Server::broadcastMessage("<b>" + username + "</b> is now known as <b>" + newName + "</b>.");
@@ -170,11 +169,10 @@ void ChatClient::doPacket(quint8 id, QString stuff) {
 
 ChatClient::~ChatClient() { // Instance destructer
     Server::broadcastMessage("<b>" + username + "</b> has disconnected.");
-    qDebug() << username << " disconnected";
+    qDebug() << username << "disconnected";
     QDir saveLocation(Server::fileLocation);
-    if(!saveLocation.exists()) {
+    if(!saveLocation.exists())
         qDebug() << "Creating save folder, result: " << (saveLocation.mkpath(".") ? "success." : "failure!" );
-    }
     QString name = ipAddress;
     QFile file(saveLocation.filePath(name + ".dat"));
     if(file.open(QIODevice::WriteOnly)) {

@@ -126,12 +126,6 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>Clear Chat</string>
    </property>
-   <property name="font">
-    <font>
-     <family>Arial</family>
-     <pointsize>8</pointsize>
-    </font>
-   </property>
   </action>
   <action name="actionExit">
    <property name="text">

@@ -22,7 +22,7 @@ public:
 
 private slots:
     void readData();
-    void doPacket(quint8, QString);
+    void doPacket(quint8, QString = "");
     void addText(QString);
     void sendMessage();
 
