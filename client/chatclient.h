@@ -30,6 +30,7 @@ private slots:
     void connected();
     void disconnected();
     void connectionError(QAbstractSocket::SocketError);
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::ChatClient *ui;

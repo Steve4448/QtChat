@@ -5,7 +5,7 @@
 #include <QDesktopServices>
 #include <QKeyEvent>
 #include <QUrl>
-double ChatClient::Version = 1.0;
+double ChatClient::Version = 1.1;
 
 ChatClient::ChatClient(QWidget *parent) :
 	QMainWindow(parent),
@@ -51,12 +51,12 @@ void ChatClient::connected() {
 }
 
 void ChatClient::disconnected() {
-	ui->inputMessageArea->setEnabled(false);
-	ui->connectNowButton->setVisible(true);
-	ui->connectNowButton->setEnabled(true);
-	ui->usersOnlineList->clear();
-	timer.start();
-	addText("<font color=\"#FF0000\">Lost connection to server</font>, retrying every minute.");
+    ui->inputMessageArea->setEnabled(false);
+    ui->connectNowButton->setVisible(true);
+    ui->connectNowButton->setEnabled(true);
+    ui->usersOnlineList->clear();
+    timer.start();
+    addText("<font color=\"#FF0000\">Lost connection to server</font>, retrying every minute.");
 }
 
 bool ChatClient::eventFilter(QObject*, QEvent* ev) {
@@ -139,6 +139,14 @@ void ChatClient::doPacket(quint8 id, QString stuff) {
 
 void ChatClient::addText(QString text) {
 	ui->messageArea->append(text);
+}
+
+void ChatClient::closeEvent(QCloseEvent *) {
+    disconnect(&socket, SIGNAL(connected()), this, SLOT(connected()));
+    disconnect(&socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    disconnect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(connectionError(QAbstractSocket::SocketError)));
+    disconnect(&socket, SIGNAL(readyRead()), this, SLOT(readData()));
+    disconnect(&timer, SIGNAL(timeout()), this, SLOT(connectToHost()));
 }
 
 ChatClient::~ChatClient() {

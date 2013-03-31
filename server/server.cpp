@@ -5,7 +5,7 @@
 #include "chatclient.h"
 
 int Server::serverPort = 8612;
-double Server::Version = 1.0;
+double Server::Version = 1.1;
 QString Server::fileLocation = "saves";
 QList<ChatClient*> Server::clients;
 
